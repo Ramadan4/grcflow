@@ -32,12 +32,24 @@
     
     --success: 142 76% 36%;
     --success-foreground: 0 0% 100%;
+    --success-light: 142 76% 95%;
     
     --warning: 38 92% 50%;
     --warning-foreground: 0 0% 100%;
+    --warning-light: 38 92% 95%;
     
     --info: 199 89% 48%;
     --info-foreground: 0 0% 100%;
+    --info-light: 199 89% 95%;
+    
+    --pending: 38 92% 50%;
+    --pending-foreground: 0 0% 100%;
+    
+    --suspended: 0 84% 60%;
+    --suspended-foreground: 0 0% 100%;
+    
+    --purple: 270 70% 60%;
+    --purple-light: 270 70% 95%;
     
     --border: 214 32% 91%;
     --input: 214 32% 91%;
