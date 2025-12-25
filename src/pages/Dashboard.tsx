@@ -1,4 +1,4 @@
-import { DashboardLayout } from "@/components/layout/DashboardLayout";
+// Dashboard page content - layout is handled by MainLayout in App.tsx
 import { StatCard } from "@/components/dashboard/StatCard";
 import { GaugeChart } from "@/components/dashboard/GaugeChart";
 import { DonutChart } from "@/components/dashboard/DonutChart";
@@ -36,7 +36,7 @@ const topUsers = [
 
 export default function Dashboard() {
   return (
-    <DashboardLayout>
+    <>
       <div className="p-6 space-y-6">
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
@@ -172,6 +172,6 @@ export default function Dashboard() {
           />
         </div>
       </div>
-    </DashboardLayout>
+    </>
   );
 }
