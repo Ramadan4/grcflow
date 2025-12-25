@@ -108,7 +108,7 @@ const CreateUser = () => {
 
   return (
     <div className="min-h-screen bg-background p-6 lg:p-8">
-      <div className="mx-auto max-w-4xl space-y-8">
+      <div className="mx-auto   space-y-8">
         {/* Page Header */}
         <div className="flex items-start gap-4">
           <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-xl bg-primary/10">
