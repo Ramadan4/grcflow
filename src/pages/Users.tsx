@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Users as UsersIcon, Upload, Download, Plus, Lock, ShieldX } from "lucide-react";
 import { PageHeader } from "@/components/users/PageHeader";
 import { StatsCard } from "@/components/users/StatsCard";
@@ -71,6 +72,7 @@ const mockUsers: User[] = [
 ];
 
 const Users: React.FC = () => {
+  const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [departmentFilter, setDepartmentFilter] = useState("");
@@ -104,7 +106,7 @@ const Users: React.FC = () => {
         actions={[
           { label: "Bulk Import", icon: Upload, variant: "action" },
           { label: "Export Users", icon: Download, variant: "action" },
-          { label: "Create User", icon: Plus, variant: "create" },
+          { label: "Create User", icon: Plus, variant: "create", onClick: () => navigate("/users/create") },
         ]}
       />
 
