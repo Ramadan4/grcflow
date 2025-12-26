@@ -1,4 +1,5 @@
 import { Bell, Search, ChevronDown, LogOut, User, Settings } from "lucide-react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -11,6 +12,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { SidebarTrigger } from "@/components/ui/sidebar";
 import { UserProfile } from "@/config/menuConfig";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 
 interface TopbarProps {
   user?: UserProfile;
@@ -23,6 +25,8 @@ export function Topbar({
   onLogout,
   showSearch = true 
 }: TopbarProps) {
+  const { t } = useTranslation();
+  
   const initials = user.name
     .split(" ")
     .map((n) => n[0])
@@ -37,11 +41,11 @@ export function Topbar({
         {showSearch && (
           <div className="hidden md:flex items-center">
             <div className="relative">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Search className="absolute start-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
                 type="search"
-                placeholder="Search..."
-                className="w-64 pl-9 bg-muted/50 border-0 focus-visible:ring-1"
+                placeholder={t('common.search')}
+                className="w-64 ps-9 bg-muted/50 border-0 focus-visible:ring-1"
               />
             </div>
           </div>
@@ -49,6 +53,8 @@ export function Topbar({
       </div>
 
       <div className="flex items-center gap-3">
+        <LanguageSwitcher />
+        
         <Button variant="ghost" size="icon" className="relative">
           <Bell className="h-5 w-5 text-muted-foreground" />
           <span className="absolute -top-1 -right-1 flex h-4 w-4 items-center justify-center rounded-full bg-destructive text-[10px] font-medium text-destructive-foreground">
@@ -87,17 +93,17 @@ export function Topbar({
             </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem>
-              <User className="mr-2 h-4 w-4" />
-              Profile
+              <User className="me-2 h-4 w-4" />
+              {t('common.profile')}
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Settings className="mr-2 h-4 w-4" />
-              Settings
+              <Settings className="me-2 h-4 w-4" />
+              {t('common.settings')}
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={onLogout} className="text-destructive">
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
+              <LogOut className="me-2 h-4 w-4" />
+              {t('common.logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
