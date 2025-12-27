@@ -10,6 +10,7 @@ import NotFound from "./pages/NotFound";
 import TestProcedureDetails from "./pages/TestProcedureDetails";
 import Users from "./pages/Users";
 import CreateUser from "./pages/CreateUser";
+import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
 
@@ -19,16 +20,23 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
-        <MainLayout>
-          <Routes>
-            <Route path="/" element={<Dashboard />} />
-            <Route path="/test-procedure" element={<TestProcedureDetails />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/users/create" element={<CreateUser />} />
-            {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </MainLayout>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route
+            path="/*"
+            element={
+              <MainLayout>
+                <Routes>
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/test-procedure" element={<TestProcedureDetails />} />
+                  <Route path="/users" element={<Users />} />
+                  <Route path="/users/create" element={<CreateUser />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </MainLayout>
+            }
+          />
+        </Routes>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
