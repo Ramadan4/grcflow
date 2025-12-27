@@ -10,6 +10,8 @@ import NotFound from "./pages/NotFound";
 import TestProcedureDetails from "./pages/TestProcedureDetails";
 import Users from "./pages/Users";
 import CreateUser from "./pages/CreateUser";
+import Delegation from "./pages/Delegation";
+import CreateDelegation from "./pages/CreateDelegation";
 import Login from "./pages/Login";
 
 const queryClient = new QueryClient();
@@ -31,6 +33,8 @@ const App = () => (
                   <Route path="/test-procedure" element={<TestProcedureDetails />} />
                   <Route path="/users" element={<Users />} />
                   <Route path="/users/create" element={<CreateUser />} />
+                  <Route path="/delegation" element={<Delegation />} />
+                  <Route path="/delegation/create" element={<CreateDelegation />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </MainLayout>
