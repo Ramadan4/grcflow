@@ -26,8 +26,8 @@
   },
   "dashboard": {
     "title": "GRC Dashboard",
-    "subtitle": "Real-time metrics and KPIs for governance, risk, and compliance monitoring",
-    "lastDays": "Last 7 Days",
+    "subtitle": "Real-time Governance, Risk, and Compliance metrics and KPIs",
+    "lastDays": "Last 7 days",
     "activeUsers": "Active Users",
     "totalUsers": "Total Users",
     "failedLoginRate": "Failed Login Rate",
@@ -36,8 +36,8 @@
     "mfaAdoptionRate": "MFA Adoption Rate",
     "accessAnomalyRate": "Access Anomaly Rate",
     "inactiveAccounts": "Inactive Accounts by Department",
-    "topActiveUsers": "Top 5 Most Active Users",
-    "afterHoursLogins": "After-Hours Logins",
+    "topActiveUsers": "Top 5 Active Users",
+    "afterHoursLogins": "After Hours Logins",
     "delegationsActive": "Delegations Active",
     "roleChanges": "Role Changes",
     "highSeverityEvents": "High Severity Events",
@@ -45,17 +45,17 @@
     "normal": "Normal",
     "improving": "Improving",
     "open": "Open",
-    "pending": "pending",
-    "escalated": "escalated",
+    "pending": "Pending",
+    "escalated": "Escalated",
     "withMfa": "With MFA",
     "without": "Without",
     "users": "users",
     "actions": "actions",
-    "vsPrevious": "vs {{count}} previous period"
+    "vsPrevious": "vs previous {{count}}"
   },
   "users": {
     "title": "User Management",
-    "subtitle": "Create and manage user accounts with proper roles, authentication methods, and attributes",
+    "subtitle": "Create and manage user accounts with appropriate roles, authentication methods, and attributes",
     "createUser": "Create User",
     "bulkImport": "Bulk Import",
     "exportUsers": "Export Users",
@@ -75,5 +75,41 @@
   "createUser": {
     "title": "Create New User",
     "subtitle": "Add a new user to the system with role assignment and security settings"
+  },
+  "login": {
+    "title": "Welcome Back",
+    "subtitle": "Enter your credentials to access your account",
+    "email": {
+      "label": "Email Address",
+      "placeholder": "name@company.com"
+    },
+    "password": {
+      "label": "Password",
+      "placeholder": "Enter your password"
+    },
+    "rememberMe": "Remember me",
+    "forgotPassword": "Forgot password?",
+    "signIn": "Sign In",
+    "signingIn": "Signing in...",
+    "orContinueWith": "Or continue with",
+    "ssoLogin": "Single Sign-On (SSO)",
+    "noAccount": "Don't have an account?",
+    "contactAdmin": "Contact your administrator",
+    "copyright": "© 2024 GRC Platform. All rights reserved.",
+    "branding": {
+      "title": "GRC Platform",
+      "subtitle": "Enterprise Governance, Risk & Compliance Management System"
+    },
+    "success": {
+      "title": "Login Successful",
+      "message": "Welcome back! Redirecting to dashboard..."
+    },
+    "errors": {
+      "emailRequired": "Email is required",
+      "emailInvalid": "Please enter a valid email address",
+      "passwordRequired": "Password is required",
+      "passwordLength": "Password must be at least 6 characters",
+      "general": "Login failed. Please check your credentials and try again."
+    }
   }
 }
