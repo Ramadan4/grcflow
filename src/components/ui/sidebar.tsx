@@ -126,6 +126,7 @@ const SidebarProvider = React.forwardRef<
     </SidebarContext.Provider>
   );
 });
+
 SidebarProvider.displayName = "SidebarProvider";
 
 const Sidebar = React.forwardRef<
@@ -135,7 +136,7 @@ const Sidebar = React.forwardRef<
     variant?: "sidebar" | "floating" | "inset";
     collapsible?: "offcanvas" | "icon" | "none";
   }
->(({ side = "left", variant = "sidebar", collapsible = "offcanvas", className, children, ...props }, ref) => {
+>(({ side = "right", variant = "sidebar", collapsible = "offcanvas", className, children, ...props }, ref) => {
   const { isMobile, state, openMobile, setOpenMobile } = useSidebar();
 
   if (collapsible === "none") {

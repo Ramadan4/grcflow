@@ -23,6 +23,7 @@ import {
 } from "@/components/ui/collapsible";
 import { MenuGroup, MenuItem, UserProfile } from "@/config/menuConfig";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { useTranslation } from "react-i18next";
 
 interface SidebarNavProps {
   menuGroups: MenuGroup[];
@@ -34,7 +35,13 @@ interface SidebarNavProps {
   };
 }
 
-function MenuItemComponent({ item, collapsed }: { item: MenuItem; collapsed: boolean }) {
+function MenuItemComponent({
+  item,
+  collapsed,
+}: {
+  item: MenuItem;
+  collapsed: boolean;
+}) {
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = item.children && item.children.length > 0;
 
@@ -46,7 +53,9 @@ function MenuItemComponent({ item, collapsed }: { item: MenuItem; collapsed: boo
             <SidebarMenuButton className="h-10 w-full justify-between hover:bg-sidebar-accent rounded-lg">
               <div className="flex items-center gap-3">
                 <item.icon className="h-[18px] w-[18px] shrink-0 text-sidebar-foreground/70" />
-                {!collapsed && <span className="text-[13px] font-normal">{item.title}</span>}
+                {!collapsed && (
+                  <span className="text-[13px] font-normal">{item.title}</span>
+                )}
               </div>
               {!collapsed && (
                 <ChevronRight
@@ -98,7 +107,9 @@ function MenuItemComponent({ item, collapsed }: { item: MenuItem; collapsed: boo
           <item.icon className="h-[18px] w-[18px] shrink-0" />
           {!collapsed && (
             <>
-              <span className="text-[13px] font-normal flex-1">{item.title}</span>
+              <span className="text-[13px] font-normal flex-1">
+                {item.title}
+              </span>
               {item.badge && (
                 <Badge className="h-5 min-w-5 flex items-center justify-center rounded-full bg-sidebar-foreground/20 text-sidebar-foreground text-[10px] font-medium px-1.5">
                   {item.badge}
@@ -122,6 +133,7 @@ export function SidebarNav({
 }: SidebarNavProps) {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
+  const { i18n } = useTranslation();
 
   const userInitials = user?.name
     ?.split(" ")
@@ -130,15 +142,19 @@ export function SidebarNav({
     .toUpperCase();
 
   return (
-    <Sidebar className="border-r-0" collapsible="icon">
+    <Sidebar
+      className="border-r-0"
+      collapsible="icon"
+      side={i18n.language === "ar" ? "right" : "left"}
+    >
       <SidebarHeader className="px-4 py-4 border-b border-sidebar-border/30">
         <div className="flex items-center gap-3">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-primary/80 to-primary shrink-0 shadow-sm">
-            <svg 
-              className="h-5 w-5 text-white" 
-              viewBox="0 0 24 24" 
-              fill="none" 
-              stroke="currentColor" 
+            <svg
+              className="h-5 w-5 text-white"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
               strokeWidth="2"
             >
               <circle cx="12" cy="12" r="10" />
@@ -154,7 +170,9 @@ export function SidebarNav({
                   </span>
                 </div>
                 {logo.subtitle && (
-                  <span className="text-base font-bold text-primary">{logo.subtitle}</span>
+                  <span className="text-base font-bold text-primary">
+                    {logo.subtitle}
+                  </span>
                 )}
                 {logo.description && (
                   <span className="text-[11px] text-sidebar-foreground/50 mt-0.5">

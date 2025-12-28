@@ -21,6 +21,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
 }) => {
   return (
     <Card className="p-4">
+      <div className="flex items-center justify-between">
       <div>
         <p className="text-sm text-muted-foreground">{label}</p>
         <p className={`text-2xl font-bold ${valueColor || iconColor || "text-foreground"}`}>
@@ -32,6 +33,7 @@ export const StatsCard: React.FC<StatsCardProps> = ({
           <Icon className={`h-6 w-6 ${iconColor}`} />
         </div>
       )}
+      </div>
     </Card>
   );
 };
