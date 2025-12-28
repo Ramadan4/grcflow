@@ -154,5 +154,10 @@
       "passwordLength": "Password must be at least 6 characters",
       "general": "Login failed. Please check your credentials and try again."
     }
+  },
+  "pagination": {
+    "Previous": "Previous",
+    "Next": "Next",
+    "More_pages":"More pages"
   }
 }

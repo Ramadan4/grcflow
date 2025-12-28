@@ -17,6 +17,7 @@ export const ApprovalTypeBadge: React.FC<ApprovalTypeBadgeProps> = ({
       className={cn("font-normal bg-background", className)}
     >
       {type}
+ 
     </Badge>
   );
 };

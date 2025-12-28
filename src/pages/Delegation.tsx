@@ -64,8 +64,20 @@ const mockDelegations: Delegation[] = [
     status: "expired",
     reason: "Sick leave",
   },
+
   {
     id: "4",
+    fromUser: { name: "Robert Taylor", email: "robert.t@example.com" },
+    toUser: { name: "Jennifer Martinez", email: "jennifer.m@example.com" },
+    startDate: "2024-01-20",
+    endDate: "2024-01-25",
+    approvalTypes: ["Role Assignment", "Template Approval"],
+    status: "revoked",
+    reason: "Emergency - revoked early",
+  },
+
+  {
+    id: "5",
     fromUser: { name: "Robert Taylor", email: "robert.t@example.com" },
     toUser: { name: "Jennifer Martinez", email: "jennifer.m@example.com" },
     startDate: "2024-01-20",
@@ -85,9 +97,15 @@ const Delegation: React.FC = () => {
 
   // Calculate stats
   const totalDelegations = mockDelegations.length;
-  const activeDelegations = mockDelegations.filter((d) => d.status === "active").length;
-  const scheduledDelegations = mockDelegations.filter((d) => d.status === "scheduled").length;
-  const expiredDelegations = mockDelegations.filter((d) => d.status === "expired").length;
+  const activeDelegations = mockDelegations.filter(
+    (d) => d.status === "active"
+  ).length;
+  const scheduledDelegations = mockDelegations.filter(
+    (d) => d.status === "scheduled"
+  ).length;
+  const expiredDelegations = mockDelegations.filter(
+    (d) => d.status === "expired"
+  ).length;
 
   const handleEdit = (delegation: Delegation) => {
     console.log("Edit delegation:", delegation);
@@ -105,7 +123,9 @@ const Delegation: React.FC = () => {
       render: (item) => (
         <div className="flex items-center gap-2">
           <User className="h-4 w-4 text-muted-foreground" />
-          <span className="font-medium text-foreground">{item.fromUser.name}</span>
+          <span className="font-medium text-foreground">
+            {item.fromUser.name}
+          </span>
         </div>
       ),
     },
@@ -115,7 +135,9 @@ const Delegation: React.FC = () => {
       render: (item) => (
         <div className="flex items-center gap-2">
           <User className="h-4 w-4 text-muted-foreground" />
-          <span className="font-medium text-foreground">{item.toUser.name}</span>
+          <span className="font-medium text-foreground">
+            {item.toUser.name}
+          </span>
         </div>
       ),
     },
@@ -163,7 +185,10 @@ const Delegation: React.FC = () => {
       <PageHeader
         icon={ArrowRightLeft}
         title={t("delegation.title", "Approval Delegation")}
-        description={t("delegation.description", "Delegate approval authority to other users")}
+        description={t(
+          "delegation.description",
+          "Delegate approval authority to other users"
+        )}
         actions={[
           {
             label: t("delegation.createDelegation", "Create Delegation"),
@@ -205,11 +230,17 @@ const Delegation: React.FC = () => {
             {t("delegation.historyTitle", "Delegation History")}
           </h2>
           <p className="text-sm text-muted-foreground">
-            {t("delegation.historyDescription", "Manage and track approval delegations")}
+            {t(
+              "delegation.historyDescription",
+              "Manage and track approval delegations"
+            )}
           </p>
         </div>
         <SearchAndFilters
-          searchPlaceholder={t("delegation.searchPlaceholder", "Search delegations...")}
+          searchPlaceholder={t(
+            "delegation.searchPlaceholder",
+            "Search delegations..."
+          )}
           searchValue={searchValue}
           onSearchChange={setSearchValue}
           filters={[
@@ -219,9 +250,15 @@ const Delegation: React.FC = () => {
               value: statusFilter,
               onChange: setStatusFilter,
               options: [
-                { value: "all", label: t("delegation.allStatus", "All Status") },
+                {
+                  value: "all",
+                  label: t("delegation.allStatus", "All Status"),
+                },
                 { value: "active", label: t("delegation.active", "Active") },
-                { value: "scheduled", label: t("delegation.scheduled", "Scheduled") },
+                {
+                  value: "scheduled",
+                  label: t("delegation.scheduled", "Scheduled"),
+                },
                 { value: "expired", label: t("delegation.expired", "Expired") },
                 { value: "revoked", label: t("delegation.revoked", "Revoked") },
               ],
@@ -244,7 +281,7 @@ const Delegation: React.FC = () => {
         currentPage={currentPage}
         totalPages={1}
         totalItems={totalDelegations}
-        itemsPerPage={10}
+        itemsPerPage={5}
         onPageChange={setCurrentPage}
       />
     </div>

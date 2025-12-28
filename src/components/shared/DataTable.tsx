@@ -63,7 +63,7 @@ export function DataTable<T>({
               </TableHead>
             ))}
             {hasActions && (
-              <TableHead className="font-semibold text-foreground text-right">
+              <TableHead className="font-semibold text-foreground text-center">
                 Actions
               </TableHead>
             )}
