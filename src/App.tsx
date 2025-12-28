@@ -1,4 +1,5 @@
 import { Toaster } from "@/components/ui/toaster";
+import TableExample from "./pages/TableExample";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
@@ -35,6 +36,7 @@ const App = () => (
                   <Route path="/users/create" element={<CreateUser />} />
                   <Route path="/delegation" element={<Delegation />} />
                   <Route path="/delegation/create" element={<CreateDelegation />} />
+                  <Route path="/table-example" element={<TableExample />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </MainLayout>
