@@ -20,7 +20,7 @@ export function MainLayout({
   children,
   menuGroups = menuConfig,
   user = defaultUser,
-  showSearch = true,
+  showSearch = false,
   onLogout,
   logo,
 }: MainLayoutProps) {

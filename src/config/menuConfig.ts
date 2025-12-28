@@ -1,21 +1,21 @@
-import { 
-  LayoutDashboard, 
-  CheckSquare, 
-  Users, 
-  Shield, 
-  Key, 
-  Lock, 
-  FileText, 
-  BarChart3, 
-  GitBranch, 
-  Bell, 
-  FileStack, 
-  Building2, 
-  User, 
+import {
+  LayoutDashboard,
+  CheckSquare,
+  Users,
+  Shield,
+  Key,
+  Lock,
+  FileText,
+  BarChart3,
+  GitBranch,
+  Bell,
+  FileStack,
+  Building2,
+  User,
   Settings,
   ArrowRightLeft,
   LogOut,
-  LucideIcon
+  LucideIcon,
 } from "lucide-react";
 
 export interface MenuItem {
@@ -40,24 +40,33 @@ export interface UserProfile {
 
 export const menuConfig: MenuGroup[] = [
   {
-    label: "Core Platform & Access Control",
+    label: "sidebar.platformLabel",
     items: [
-      { title: "Dashboard", url: "/", icon: LayoutDashboard },
-      { title: "My Tasks", url: "/tasks", icon: CheckSquare, badge: 5 },
-      { title: "Delegation", url: "/delegation", icon: ArrowRightLeft },
-      { title: "Users", url: "/users", icon: Users },
-      { title: "Roles & Permissions", url: "/roles", icon: Shield },
-      { title: "SSO Configuration", url: "/sso", icon: Key },
-      { title: "Security Policies", url: "/security", icon: Lock },
-      { title: "Audit Logs", url: "/audit", icon: FileText },
-      { title: "User Activity", url: "/activity", icon: BarChart3 },
-      { title: "Workflows", url: "/workflows", icon: GitBranch },
-      { title: "Notifications", url: "/notifications", icon: Bell },
-      { title: "Templates", url: "/templates", icon: FileStack },
-      { title: "Organization", url: "/organization", icon: Building2 },
-      { title: "Profile", url: "/profile", icon: User },
-      { title: "Settings", url: "/settings", icon: Settings },
+      { title: "sidebar.dashboard", url: "/", icon: LayoutDashboard },
+      { title: "sidebar.myTasks", url: "/tasks", icon: CheckSquare, badge: 5 },
+      { title: "sidebar.delegation", url: "/delegation", icon: ArrowRightLeft },
+      { title: "sidebar.users", url: "/users", icon: Users },
+      { title: "sidebar.rolesPermissions", url: "/roles", icon: Shield },
+      { title: "sidebar.ssoConfiguration", url: "/sso", icon: Key },
+      { title: "sidebar.securityPolicies", url: "/security", icon: Lock },
+      { title: "sidebar.auditLogs", url: "/audit", icon: FileText },
+      { title: "sidebar.userActivity", url: "/activity", icon: BarChart3 },
+      { title: "sidebar.workflows", url: "/workflows", icon: GitBranch },
+      { title: "sidebar.notifications", url: "/notifications", icon: Bell },
+      { title: "sidebar.templates", url: "/templates", icon: FileStack },
+      { title: "sidebar.organization", url: "/organization", icon: Building2 },
+      { title: "sidebar.profile", url: "/profile", icon: User },
+      { title: "sidebar.settings", url: "/settings", icon: Settings },
     ],
+  },
+
+  {
+    label: "Policy",
+    items: [{ title: "policy", url: "/policy", icon: LayoutDashboard }],
+  },
+  {
+    label: "Risk",
+    items: [{ title: "Risk", url: "/risk", icon: LayoutDashboard }],
   },
 ];
 

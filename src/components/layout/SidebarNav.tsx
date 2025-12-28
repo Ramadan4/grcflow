@@ -42,6 +42,7 @@ function MenuItemComponent({
   item: MenuItem;
   collapsed: boolean;
 }) {
+  const{t}=useTranslation()
   const [isOpen, setIsOpen] = useState(false);
   const hasChildren = item.children && item.children.length > 0;
 
@@ -54,7 +55,7 @@ function MenuItemComponent({
               <div className="flex items-center gap-3">
                 <item.icon className="h-[18px] w-[18px] shrink-0 text-sidebar-foreground/70" />
                 {!collapsed && (
-                  <span className="text-[13px] font-normal">{item.title}</span>
+                  <span className="text-[13px] font-normal">{t(item.title)}</span>
                 )}
               </div>
               {!collapsed && (
@@ -78,7 +79,7 @@ function MenuItemComponent({
                       activeClassName="bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground"
                     >
                       <child.icon className="h-4 w-4 shrink-0" />
-                      <span>{child.title}</span>
+                      <span>{t(child.title)}</span>
                       {child.badge && (
                         <Badge className="ml-auto h-5 min-w-5 flex items-center justify-center rounded-full bg-sidebar-foreground/20 text-sidebar-foreground text-[10px] font-medium px-1.5">
                           {child.badge}
@@ -107,8 +108,8 @@ function MenuItemComponent({
           <item.icon className="h-[18px] w-[18px] shrink-0" />
           {!collapsed && (
             <>
-              <span className="text-[13px] font-normal flex-1">
-                {item.title}
+              <span className="text-[13px] font-normal flex-1 text-start" >
+                {t(item.title)}
               </span>
               {item.badge && (
                 <Badge className="h-5 min-w-5 flex items-center justify-center rounded-full bg-sidebar-foreground/20 text-sidebar-foreground text-[10px] font-medium px-1.5">
@@ -133,7 +134,7 @@ export function SidebarNav({
 }: SidebarNavProps) {
   const { state } = useSidebar();
   const collapsed = state === "collapsed";
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   const userInitials = user?.name
     ?.split(" ")
@@ -193,14 +194,15 @@ export function SidebarNav({
           <SidebarGroup key={group.label} className="mb-2">
             {!collapsed && (
               <SidebarGroupLabel className="text-[10px] font-semibold text-sidebar-foreground/40 uppercase tracking-wider px-3 mb-3">
-                {group.label}
+                {t(group.label)}
               </SidebarGroupLabel>
             )}
+
             <SidebarGroupContent>
               <SidebarMenu className="space-y-0.5">
                 {group.items.map((item) => (
                   <MenuItemComponent
-                    key={item.title}
+                    key={item.title}  
                     item={item}
                     collapsed={collapsed}
                   />
