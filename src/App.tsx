@@ -14,6 +14,7 @@ import CreateUser from "./pages/CreateUser";
 import Delegation from "./pages/Delegation";
 import CreateDelegation from "./pages/CreateDelegation";
 import Login from "./pages/Login";
+import Tasks from "./pages/Tasks";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
               <MainLayout>
                 <Routes>
                   <Route path="/" element={<Dashboard />} />
+                  <Route path="/tasks" element={<Tasks />} />
                   <Route path="/test-procedure" element={<TestProcedureDetails />} />
                   <Route path="/users" element={<Users />} />
                   <Route path="/users/create" element={<CreateUser />} />
