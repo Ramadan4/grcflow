@@ -15,6 +15,8 @@ import Delegation from "./pages/Delegation";
 import CreateDelegation from "./pages/CreateDelegation";
 import Login from "./pages/Login";
 import Tasks from "./pages/Tasks";
+import Roles from "./pages/Roles";
+import CreateRole from "./pages/CreateRole";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +40,8 @@ const App = () => (
                   <Route path="/users/create" element={<CreateUser />} />
                   <Route path="/delegation" element={<Delegation />} />
                   <Route path="/delegation/create" element={<CreateDelegation />} />
+                  <Route path="/roles" element={<Roles />} />
+                  <Route path="/roles/create" element={<CreateRole />} />
                   <Route path="/table-example" element={<TableExample />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
