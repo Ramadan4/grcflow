@@ -17,6 +17,8 @@ import Login from "./pages/Login";
 import Tasks from "./pages/Tasks";
 import Roles from "./pages/Roles";
 import CreateRole from "./pages/CreateRole";
+import SecurityPolicies from "./pages/SecurityPolicies";
+import CreateSecurityPolicy from "./pages/CreateSecurityPolicy";
 
 const queryClient = new QueryClient();
 
@@ -42,6 +44,8 @@ const App = () => (
                   <Route path="/delegation/create" element={<CreateDelegation />} />
                   <Route path="/roles" element={<Roles />} />
                   <Route path="/roles/create" element={<CreateRole />} />
+                  <Route path="/security/policies" element={<SecurityPolicies />} />
+                  <Route path="/security/policies/create" element={<CreateSecurityPolicy />} />
                   <Route path="/table-example" element={<TableExample />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
