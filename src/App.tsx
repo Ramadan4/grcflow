@@ -19,6 +19,8 @@ import Roles from "./pages/Roles";
 import CreateRole from "./pages/CreateRole";
 import SecurityPolicies from "./pages/SecurityPolicies";
 import CreateSecurityPolicy from "./pages/CreateSecurityPolicy";
+import Policies from "./pages/Policies";
+import CreatePolicy from "./pages/CreatePolicy";
 
 const queryClient = new QueryClient();
 
@@ -46,6 +48,8 @@ const App = () => (
                   <Route path="/roles/create" element={<CreateRole />} />
                   <Route path="/security/policies" element={<SecurityPolicies />} />
                   <Route path="/security/policies/create" element={<CreateSecurityPolicy />} />
+                  <Route path="/policies" element={<Policies />} />
+                  <Route path="/policies/create" element={<CreatePolicy />} />
                   <Route path="/table-example" element={<TableExample />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
