@@ -2,19 +2,22 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FileText, Save, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { FormSection, FormField, FormDateInput } from "@/components/forms";
 import {
   PolicyStepper,
   PolicyProgressCard,
   PolicyQuickActions,
   PolicyHelpCard,
-  FrameworkCheckbox,
-  TagInput,
 } from "@/components/governance";
+import {
+  StepMetadata,
+  StepTemplateSelection,
+  StepPlaceholders,
+  StepAuthor,
+  StepReview,
+  StepSubmit,
+} from "@/components/governance/steps";
 
+// Configuration objects
 const stepsConfig = [
   { id: 1, title: "Policy Metadata", description: "Basic information" },
   { id: 2, title: "Template Selection", description: "Select or create blank" },
@@ -57,12 +60,29 @@ const languagesConfig = [
   { value: "ar", label: "Arabic" },
 ];
 
+// Initial reviewers for demo
+const initialReviewers = [
+  {
+    id: "1",
+    name: "Ahmed Hassan",
+    email: "ahmed.hassan@company.com",
+    status: "approved" as const,
+  },
+  {
+    id: "2",
+    name: "Sara Mohamed",
+    email: "sara.mohamed@company.com",
+    status: "pending" as const,
+  },
+];
+
 const CreatePolicy = () => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(1);
+  
+  // Step 1: Metadata
   const [selectedFrameworks, setSelectedFrameworks] = useState<string[]>([]);
   const [tags, setTags] = useState<string[]>([]);
-
   const [formData, setFormData] = useState({
     title: "",
     category: "",
@@ -73,8 +93,59 @@ const CreatePolicy = () => {
     reviewCycle: "12",
   });
 
+  // Step 2: Template
+  const [selectedTemplate, setSelectedTemplate] = useState<string | null>(null);
+
+  // Step 3: Placeholders
+  const [placeholderValues, setPlaceholderValues] = useState<Record<string, string>>({});
+
+  // Step 4: Author
+  const [policyContent, setPolicyContent] = useState("");
+
+  // Step 5: Review
+  const [reviewers, setReviewers] = useState(initialReviewers);
+  const [reviewComments, setReviewComments] = useState("");
+
+  // Step 6: Submit
+  const [agreements, setAgreements] = useState({
+    reviewed: false,
+    accurate: false,
+    authorized: false,
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleInputChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handlePlaceholderChange = (id: string, value: string) => {
+    setPlaceholderValues(prev => ({ ...prev, [id]: value }));
+  };
+
+  const handleAddReviewer = (email: string) => {
+    const newReviewer = {
+      id: Date.now().toString(),
+      name: email.split("@")[0].replace(/[._]/g, " "),
+      email,
+      status: "pending" as const,
+    };
+    setReviewers(prev => [...prev, newReviewer]);
+  };
+
+  const handleRemoveReviewer = (id: string) => {
+    setReviewers(prev => prev.filter(r => r.id !== id));
+  };
+
+  const handleAgreementChange = (key: string, value: boolean) => {
+    setAgreements(prev => ({ ...prev, [key]: value }));
+  };
+
+  const handleSubmit = async () => {
+    setIsSubmitting(true);
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 2000));
+    setIsSubmitting(false);
+    navigate("/policies");
   };
 
   const handleNext = () => {
@@ -86,6 +157,82 @@ const CreatePolicy = () => {
   const handleBack = () => {
     if (currentStep > 1) {
       setCurrentStep(currentStep - 1);
+    }
+  };
+
+  // Render current step content
+  const renderStepContent = () => {
+    switch (currentStep) {
+      case 1:
+        return (
+          <StepMetadata
+            formData={formData}
+            onInputChange={handleInputChange}
+            categories={categoriesConfig}
+            departments={departmentsConfig}
+            owners={ownersConfig}
+            languages={languagesConfig}
+            frameworks={frameworksConfig}
+            selectedFrameworks={selectedFrameworks}
+            onFrameworksChange={setSelectedFrameworks}
+            tags={tags}
+            onTagsChange={setTags}
+          />
+        );
+      case 2:
+        return (
+          <StepTemplateSelection
+            selectedTemplate={selectedTemplate}
+            onSelectTemplate={setSelectedTemplate}
+          />
+        );
+      case 3:
+        return (
+          <StepPlaceholders
+            values={placeholderValues}
+            onChange={handlePlaceholderChange}
+          />
+        );
+      case 4:
+        return (
+          <StepAuthor
+            content={policyContent}
+            onChange={setPolicyContent}
+          />
+        );
+      case 5:
+        return (
+          <StepReview
+            reviewers={reviewers}
+            onAddReviewer={handleAddReviewer}
+            onRemoveReviewer={handleRemoveReviewer}
+            comments={reviewComments}
+            onCommentsChange={setReviewComments}
+          />
+        );
+      case 6:
+        return (
+          <StepSubmit
+            summary={{
+              title: formData.title,
+              category: categoriesConfig.find(c => c.value === formData.category)?.label || "",
+              department: departmentsConfig.find(d => d.value === formData.department)?.label || "",
+              owner: ownersConfig.find(o => o.value === formData.owner)?.label || "",
+              effectiveDate: formData.effectiveDate,
+              frameworks: selectedFrameworks.map(
+                f => frameworksConfig.find(fw => fw.id === f)?.label || f
+              ),
+              reviewersCount: reviewers.length,
+              approvedCount: reviewers.filter(r => r.status === "approved").length,
+            }}
+            agreements={agreements}
+            onAgreementChange={handleAgreementChange}
+            onSubmit={handleSubmit}
+            isSubmitting={isSubmitting}
+          />
+        );
+      default:
+        return null;
     }
   };
 
@@ -121,145 +268,33 @@ const CreatePolicy = () => {
             />
           </div>
 
-          {/* Form */}
+          {/* Dynamic Step Content */}
           <div className="rounded-xl border border-border bg-card p-6">
-            <FormSection title="Policy Metadata">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  label="Policy Title"
-                  name="title"
-                  required
-                  placeholder="Enter policy title"
-                  value={formData.title}
-                  onChange={(v) => handleInputChange("title", v)}
-                />
+            {renderStepContent()}
 
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-foreground">
-                    Category <span className="text-destructive">*</span>
-                  </Label>
-                  <Select value={formData.category} onValueChange={(v) => handleInputChange("category", v)}>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {categoriesConfig.map(cat => (
-                        <SelectItem key={cat.value} value={cat.value}>{cat.label}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-foreground">
-                    Department <span className="text-destructive">*</span>
-                  </Label>
-                  <Select value={formData.department} onValueChange={(v) => handleInputChange("department", v)}>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Select department" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {departmentsConfig.map(dept => (
-                        <SelectItem key={dept.value} value={dept.value}>{dept.label}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-foreground">
-                    Policy Owner <span className="text-destructive">*</span>
-                  </Label>
-                  <Select value={formData.owner} onValueChange={(v) => handleInputChange("owner", v)}>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Select owner" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {ownersConfig.map(owner => (
-                        <SelectItem key={owner.value} value={owner.value}>{owner.label}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium text-foreground">
-                    Language <span className="text-destructive">*</span>
-                  </Label>
-                  <Select value={formData.language} onValueChange={(v) => handleInputChange("language", v)}>
-                    <SelectTrigger className="h-11">
-                      <SelectValue placeholder="Select language" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      {languagesConfig.map(lang => (
-                        <SelectItem key={lang.value} value={lang.value}>{lang.label}</SelectItem>
-                      ))}
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <FormDateInput
-                  label="Effective Date"
-                  name="effectiveDate"
-                  value={formData.effectiveDate}
-                  onChange={(v) => handleInputChange("effectiveDate", v)}
-                />
-              </div>
-
-              <FormField
-                label="Review Cycle (Months)"
-                name="reviewCycle"
-                type="number"
-                placeholder="12"
-                value={formData.reviewCycle}
-                onChange={(v) => handleInputChange("reviewCycle", v)}
-              />
-
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-foreground">
-                  Frameworks <span className="text-destructive">*</span>
-                </Label>
-                <FrameworkCheckbox
-                  frameworks={frameworksConfig}
-                  selectedFrameworks={selectedFrameworks}
-                  onChange={setSelectedFrameworks}
-                />
-              </div>
-
-              <div className="space-y-2">
-                <Label className="text-sm font-medium text-foreground">
-                  Tags (Max 15)
-                </Label>
-                <TagInput
-                  tags={tags}
-                  onChange={setTags}
-                  maxTags={15}
-                  placeholder="Add tag"
-                />
-              </div>
-            </FormSection>
-
-            {/* Form Actions */}
-            <div className="flex items-center justify-between pt-6 border-t border-border mt-6">
-              <Button
-                variant="outline"
-                onClick={handleBack}
-                disabled={currentStep === 1}
-                className="gap-2"
-              >
-                <ChevronLeft className="h-4 w-4" />
-                Back
-              </Button>
-              <div className="flex items-center gap-3">
-                <Button variant="outline" onClick={() => navigate("/policies")}>
-                  Cancel
+            {/* Form Actions - Hide on Submit step */}
+            {currentStep !== 6 && (
+              <div className="flex items-center justify-between pt-6 border-t border-border mt-6">
+                <Button
+                  variant="outline"
+                  onClick={handleBack}
+                  disabled={currentStep === 1}
+                  className="gap-2"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Back
                 </Button>
-                <Button onClick={handleNext} className="gap-2">
-                  Next
-                  <ChevronRight className="h-4 w-4" />
-                </Button>
+                <div className="flex items-center gap-3">
+                  <Button variant="outline" onClick={() => navigate("/policies")}>
+                    Cancel
+                  </Button>
+                  <Button onClick={handleNext} className="gap-2">
+                    Next
+                    <ChevronRight className="h-4 w-4" />
+                  </Button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
